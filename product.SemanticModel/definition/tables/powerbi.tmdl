@@ -1,0 +1,165 @@
+table powerbi
+	lineageTag: 68748fc5-2a4b-4bb3-95f7-74a243983f1e
+
+	column event_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f930bd92-a671-42ae-a296-f8a59f77e56f
+		summarizeBy: none
+		sourceColumn: event_time
+
+		variation Variation
+			isDefault
+			relationship: 9a796e8d-0062-4045-8317-a564fbf35e91
+			defaultHierarchy: LocalDateTable_253b8478-eda9-48a9-b942-c793dc413b13.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_type
+		dataType: string
+		lineageTag: 1698c86c-f153-4728-9438-d25ccac79ca1
+		summarizeBy: none
+		sourceColumn: event_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand
+		dataType: string
+		lineageTag: ecc0bac6-b20f-4b81-8f15-3c42b52bf9db
+		summarizeBy: none
+		sourceColumn: brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: decimal
+		lineageTag: 8c72e460-1d12-498b-a963-eb11ada226e9
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 76daffb1-0080-4b4a-b058-cd6289b2afde
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: 7f8ea076-9e52-4ac8-9c0f-83550f3684d7
+			defaultHierarchy: LocalDateTable_11979c53-013d-4f6b-94f7-62e81e0fa074.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b3a9ac5-a607-4424-bb4f-9f29f6dd8da2
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column time
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: abb737c5-8e04-44bf-9ca7-e1084dcc3263
+		summarizeBy: none
+		sourceColumn: time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column week
+		dataType: int64
+		formatString: 0
+		lineageTag: 58d8ec72-1140-4cdd-9009-7f565d15d4d7
+		summarizeBy: sum
+		sourceColumn: week
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_range
+		dataType: string
+		lineageTag: f0d5d19d-680a-41bb-aacc-cb19675a7f68
+		summarizeBy: none
+		sourceColumn: week_range
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_range
+		dataType: string
+		lineageTag: 1db77790-1217-458f-9bcc-b22f655b87c5
+		summarizeBy: none
+		sourceColumn: time_range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: c33dbeae-4ea2-40d7-9abd-7cea0f699c7f
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year.1'
+		dataType: int64
+		formatString: 0
+		lineageTag: 15c9f1a8-f6e8-4b63-9f59-ea6aa9da3627
+		summarizeBy: sum
+		sourceColumn: Year.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month, year'
+		dataType: string
+		lineageTag: 223aef21-4af2-400c-9dd6-6ac1af3321a2
+		summarizeBy: none
+		sourceColumn: Month, year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Monthyear = YEAR([date])*100+MONTH([date])
+		formatString: 0
+		lineageTag: e0f660f1-b55f-477a-a6e1-2d75230e0677
+		summarizeBy: sum
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column month+year = FORMAT([date],"MMMM yyyy")
+		lineageTag: e7be3b2e-48ac-4025-aaa4-731b759049b2
+		summarizeBy: none
+		sortByColumn: Monthyear
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition powerbi = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Aditi\Desktop\Data_Analytics\PowerBI\powerbi.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"event_time", type datetime}, {"event_type", type text}, {"brand", type text}, {"price", type number}, {"date", type date}, {"year", Int64.Type}, {"time", type time}, {"week", Int64.Type}, {"week_range", type text}, {"time_range", type text}}),
+				    #"Inserted Month Name" = Table.AddColumn(#"Changed Type", "Month Name", each Date.MonthName([event_time]), type text),
+				    #"Inserted Year" = Table.AddColumn(#"Inserted Month Name", "Year.1", each Date.Year([event_time]), Int64.Type),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Inserted Year", "Month, year", each Text.Combine({[Month Name], Text.From([Year.1], "en-IN")}, ","), type text),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Inserted Merged Column",{{"price", Currency.Type}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

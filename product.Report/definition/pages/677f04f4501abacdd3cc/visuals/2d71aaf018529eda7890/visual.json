@@ -1,0 +1,109 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "2d71aaf018529eda7890",
+  "position": {
+    "x": 0,
+    "y": 290.69849966643483,
+    "z": 3000,
+    "height": 429.07098550765778,
+    "width": 379.070843565031,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi"
+                    }
+                  },
+                  "Property": "month+year"
+                }
+              },
+              "queryRef": "powerbi.month+year",
+              "nativeQueryRef": "month+year",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi"
+                    }
+                  },
+                  "Property": "event_type"
+                }
+              },
+              "queryRef": "powerbi.event_type",
+              "nativeQueryRef": "event_type"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "powerbi"
+                        }
+                      },
+                      "Property": "price"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Avg(powerbi.price)",
+              "nativeQueryRef": "Average of price"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "zoom": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "valueMax": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "valueSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13.678424009967934D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

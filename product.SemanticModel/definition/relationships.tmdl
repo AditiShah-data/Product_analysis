@@ -1,0 +1,10 @@
+relationship 9a796e8d-0062-4045-8317-a564fbf35e91
+	joinOnDateBehavior: datePartOnly
+	fromColumn: powerbi.event_time
+	toColumn: LocalDateTable_253b8478-eda9-48a9-b942-c793dc413b13.Date
+
+relationship 7f8ea076-9e52-4ac8-9c0f-83550f3684d7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: powerbi.date
+	toColumn: LocalDateTable_11979c53-013d-4f6b-94f7-62e81e0fa074.Date
+
