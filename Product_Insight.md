@@ -6,7 +6,7 @@
 
 3. Cart removals were highest for high-priced products during December and January, suggesting price sensitivity before checkout.
 
-4. December generated fewer purchases but higher purchase value, showing that customers who bought during this period preferred premium products.
+4. December 2019 generated fewer purchases but higher purchase value, showing that customers who bought during this period preferred premium products.
 
 5. Afternoon was the peak activity period across all user actions (views, add-to-cart, purchases, and cart removals), making it the most important engagement window.
 
