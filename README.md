@@ -3,6 +3,6 @@
   ----------
   ## Tools used & Includes
   - [Python](#product.ipynb)
-  - PowerBI
+  - [PowerBI](#powerbi_img)
   - ChatGPT
   - [Insight](#Product_Insight.md)
