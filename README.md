@@ -2,7 +2,7 @@
   This analysis includes user behaviour across different brands, different even type and prduct price. Which means users prefer wich event type for which brand and for what average value of product.
   ----------
   ## Tools used & Includes
-  - [Python](#product.ipynb)
-  - [PowerBI](#powerbi_img)
+  - [Python](product.ipynb)
+  - [PowerBI](powerbi_img)
   - ChatGPT
-  - [Insight](#Product_Insight.md)
+  - [Insight](Product_Insight.md)
